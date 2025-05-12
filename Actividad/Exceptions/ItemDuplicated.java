@@ -1,4 +1,4 @@
-package Actividad;
+package Actividad.Exceptions;
 
 public class ItemDuplicated extends Exception {
     public ItemDuplicated (String msg){
