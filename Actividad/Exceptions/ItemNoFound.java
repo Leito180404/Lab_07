@@ -1,4 +1,4 @@
-package Actividad;
+package Actividad.Exceptions;
 
 public class ItemNoFound extends Exception {
     public ItemNoFound(String msg) {
