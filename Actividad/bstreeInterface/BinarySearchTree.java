@@ -1,5 +1,5 @@
 package Actividad.bstreeInterface;
 
-public class BinarySearchTree {
+public interface BinarySearchTree<E> {   
     
 }
