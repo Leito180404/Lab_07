@@ -22,6 +22,10 @@ public class LinkedBST<E> implements BinarySearchTree<E> {
         }
     }
 
+    private Node root;
+    public LinkedBST(){
+        this.root = null;
+    }
 
 
     @Override
@@ -31,15 +35,15 @@ public class LinkedBST<E> implements BinarySearchTree<E> {
     }
 
     @Override
-    public E search(E data) throws ItemNoFound {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
-    }
-
-    @Override
     public void delete(E data) throws ExceptionEmpty {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+    
+    @Override
+    public E search(E data) throws ItemNoFound {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'search'");
     }
 
     @Override
