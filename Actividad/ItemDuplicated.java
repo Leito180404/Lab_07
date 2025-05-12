@@ -5,6 +5,6 @@ public class ItemDuplicated extends Exception {
         super (msg);
     }
     public ItemDuplicated(){
-        super();
+        super("dato duplicado");
     }
 }
