@@ -47,6 +47,16 @@ public class LinkedBST<E> implements BinarySearchTree<E> {
     }
 
     @Override
+    public String toString() {
+        return toStringRec(root).trim();
+    }
+
+    private String toStringRec(Node node) {
+        if (node == null) return "";
+        return toStringRec(node.left) + node.data + " " + toStringRec(node.right);
+    
+
+    @Override
     public boolean isEmpty() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
