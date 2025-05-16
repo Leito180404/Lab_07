@@ -117,6 +117,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         inOrder(node.right);
         }
     }
+
     @Override
     public String toString() {
         sb = new StringBuilder();
@@ -124,6 +125,22 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return sb.toString();
     }
 
+    private void preOrder(Node node) {
+    if (node != null) {
+        if (sb.length() > 0) {
+            sb.append(" ");
+        }
+        sb.append(node.data);
+        preOrder(node.left);
+        preOrder(node.right);
+        }
+    }
+
+    public String toStringPreOrder() {
+        sb = new StringBuilder();
+        preOrder(root);
+        return sb.toString();
+    }
 
     private String toStringRec(Node node) {
         if (node == null) {
