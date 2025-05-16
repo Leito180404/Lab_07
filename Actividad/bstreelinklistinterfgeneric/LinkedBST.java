@@ -158,11 +158,53 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     postOrder(root);
     return sb.toString();
     }
-    
+
     @Override
     public boolean isEmpty() {
         return root == null;
     }
     
+    private Node findNode(E data) throws ItemNoFound {
+        return findNodeRec(root, data);
+    }
+
+    private Node findNodeRec(Node node, E data) throws ItemNoFound {
+        if (node == null) {
+            throw new ItemNoFound("El dato " + data + " no se encontro en el arbol.");
+        }
+        int cmp = data.compareTo(node.data);
+        if (cmp == 0) {
+            return node;
+        } else if (cmp < 0) {
+            return findNodeRec(node.left, data);
+        } else {
+            return findNodeRec(node.right, data);
+        }
+    }
+
+    private E findMinNode(Node node) throws ItemNoFound {
+        if (node == null) {
+            throw new ItemNoFound("El subarbol esta vacio.");
+        }
+        Node current = node;
+        while (current.left != null) {
+            current = current.left;
+        }
+        search(current.data);
+        return current.data;
+    }
+
+    private E findMaxNode(Node node) throws ItemNoFound {
+        if (node == null) {
+            throw new ItemNoFound("El subarbol esta vacio.");
+        }
+        Node current = node;
+        while (current.right != null) {
+            current = current.right;
+        }
+        search(current.data);
+        return current.data;
+    }
+
     
 }
