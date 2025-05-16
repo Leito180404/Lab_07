@@ -142,6 +142,24 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return sb.toString();
     }
 
+    private void postOrder(Node node) {
+    if (node != null) {
+        postOrder(node.left);
+        postOrder(node.right);
+        if (sb.length() > 0) {
+            sb.append(" ");
+        }
+        sb.append(node.data);
+        }
+    }
+
+    public String toStringPostOrder() {
+    sb = new StringBuilder();
+    postOrder(root);
+    return sb.toString();
+    }
+
+
     private String toStringRec(Node node) {
         if (node == null) {
             return "";
