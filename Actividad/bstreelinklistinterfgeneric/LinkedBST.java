@@ -70,41 +70,6 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
         throw new ItemNoFound("El dato " + data + " no se encontro en el arbol.");
     }
-
-    @Override
-    public void delete(E data) throws ExceptionEmpty {
-        if (root == null) {
-            throw new ExceptionEmpty("El arbol esta vacio.");
-        }
-        root = deleteNode(root, data);
-    }
-
-    private Node deleteNode(Node node, E data) {
-        if (node == null) {
-            return null; 
-        }
-
-        int cmp = data.compareTo(node.data);
-        if (cmp < 0) {
-            node.left = deleteNode(node.left, data);
-        } else if (cmp > 0) {
-            node.right = deleteNode(node.right, data);
-        } else {
-            if (node.left == null && node.right == null) {
-                return null;
-            }
-
-            if (node.left == null) {
-                return node.right;
-            }
-            if (node.right == null) {
-                return node.left;
-            }
-            throw new UnsupportedOperationException("");
-        }
-        return node;
-    }
-
     private StringBuilder sb;
 
     private void inOrder(Node node) {
@@ -206,5 +171,46 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return current.data;
     }
 
+    @Override
+    public void delete(E data) throws ExceptionEmpty {
+        if (root == null) {
+            throw new ExceptionEmpty("El arbol esta vacio.");
+        }
+        try {
+            root = deleteNode(root, data);
+        } catch (ItemNoFound e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Node deleteNode(Node node, E data) throws ItemNoFound{
+        if (node == null) {
+            return null; 
+        }
+
+        int cmp = data.compareTo(node.data);
+        if (cmp < 0) {
+            node.left = deleteNode(node.left, data);
+        } else if (cmp > 0) {
+            node.right = deleteNode(node.right, data);
+        } else {
+            if (node.left == null && node.right == null) {
+                return null;
+            }
+
+            if (node.left == null) {
+                return node.right;
+            }
+            if (node.right == null) {
+                return node.left;
+            }
+            if (node.left != null && node.right != null) {
+                E minData = findMinNode(node.right);
+                node.data = minData;
+                node.right = deleteNode(node.right, minData);
+            }
+        }
+        return node;
+    }
     
 }
