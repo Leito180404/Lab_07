@@ -5,7 +5,7 @@ import Actividad.Exceptions.ItemDuplicated;
 import Actividad.Exceptions.ItemNoFound;
 import Actividad.bstreeInterface.BinarySearchTree;
 
-public class LinkedBST<E> implements BinarySearchTree<E> {
+public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     public class Node {
         public E data;
         public Node left;
@@ -30,36 +30,112 @@ public class LinkedBST<E> implements BinarySearchTree<E> {
 
     @Override
     public void insert(E data) throws ItemDuplicated {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+        if (root == null) {
+            root = new Node(data);
+            return;
+        }
+        Node current = root;
+        Node parent = null;
+        while (current != null) {
+            int cmp = data.compareTo(current.data);
+            if (cmp == 0) {
+                throw new ItemDuplicated("El dato " + data + " ya existe en el arbol.");
+            }
+            parent = current;
+            if (cmp < 0) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        if (data.compareTo(parent.data) < 0) {
+            parent.left = new Node(data);
+        } else {
+            parent.right = new Node(data);
+        }
+    }
+
+    @Override
+    public E search(E data) throws ItemNoFound {
+        Node current = root;
+        while (current != null) {
+            int cmp = data.compareTo(current.data);
+            if (cmp == 0) {
+                return current.data;
+            } else if (cmp < 0) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        throw new ItemNoFound("El dato " + data + " no se encontro en el arbol.");
     }
 
     @Override
     public void delete(E data) throws ExceptionEmpty {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
-    }
-    
-    @Override
-    public E search(E data) throws ItemNoFound {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+        if (root == null) {
+            throw new ExceptionEmpty("El arbol esta vacio.");
+        }
+        root = deleteNode(root, data);
     }
 
+    private Node deleteNode(Node node, E data) {
+        if (node == null) {
+            return null; 
+        }
+
+        int cmp = data.compareTo(node.data);
+        if (cmp < 0) {
+            node.left = deleteNode(node.left, data);
+        } else if (cmp > 0) {
+            node.right = deleteNode(node.right, data);
+        } else {
+            if (node.left == null && node.right == null) {
+                return null;
+            }
+
+            if (node.left == null) {
+                return node.right;
+            }
+            if (node.right == null) {
+                return node.left;
+            }
+            throw new UnsupportedOperationException("");
+        }
+        return node;
+    }
+
+    private StringBuilder sb;
+
+    private void inOrder(Node node) {
+    if (node != null) {
+        inOrder(node.left);
+        if (sb.length() > 0) {
+            sb.append(" ");
+        }
+        sb.append(node.data);
+        inOrder(node.right);
+        }
+    }
     @Override
     public String toString() {
-        return toStringRec(root).trim();
+        sb = new StringBuilder();
+        inOrder(root);
+        return sb.toString();
     }
 
+
     private String toStringRec(Node node) {
-        if (node == null) return "";
+        if (node == null) {
+            return "";
+        }
         return toStringRec(node.left) + node.data + " " + toStringRec(node.right);
-    
+    }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return root == null;
     }
+    
     
 }
