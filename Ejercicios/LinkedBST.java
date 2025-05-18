@@ -314,6 +314,15 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return hojas * altura;
     }
 
+    //ejercicio 2.b
+    private String repeat(String s, int times) {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < times; i++) {
+        sb.append(s);
+    }
+    return sb.toString();
+    }
+
     public void drawBST() {
     drawBSTRec(root, 0);
     }
@@ -323,7 +332,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
                 return;
             }
         drawBSTRec(node.right, level + 1);
-        System.out.println("  ".repeat(level) + node.data);
+        System.out.println(repeat("  ", level) + node.data);
         drawBSTRec(node.left, level + 1);
     }
 
