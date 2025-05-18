@@ -313,4 +313,18 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         int altura = height(root.data);
         return hojas * altura;
     }
+
+    public void drawBST() {
+    drawBSTRec(root, 0);
+    }
+
+    private void drawBSTRec(Node node, int level) {
+            if (node == null) {
+                return;
+            }
+        drawBSTRec(node.right, level + 1);
+        System.out.println("  ".repeat(level) + node.data);
+        drawBSTRec(node.left, level + 1);
+    }
+
 }
