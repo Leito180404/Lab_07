@@ -312,11 +312,5 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
 
         int altura = height(root.data);
         return hojas * altura;
-}
-
-
-
-
-
-
+    }
 }
